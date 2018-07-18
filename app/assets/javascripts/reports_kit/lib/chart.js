@@ -27,8 +27,25 @@ ReportsKit.Chart = (function(options) {
         (chartData.datasets.length === 1 && chartData.datasets[0].data.length === 0);
       var emptyStateText = (data.report_options && data.report_options.empty_state_text) || self.defaultEmptyStateText;
       var options = chartData.options;
+      
+      options.tooltips.callbacks = {}
+      options.tooltips.callbacks.label = {}
+      
+      var titleish = function(tooltipItem, data) {
+            var corporation = data.datasets[tooltipItem.datasetIndex].label;
+            var valor = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
+.index];
+            var total = 0;
+            for (var i = 0; i < data.datasets.length; i++)
+                total += parseFloat(data.datasets[i].data[tooltipItem.index]);
+            if (tooltipItem.datasetIndex != data.datasets.length - 1) {
+                return corporation + " : $" + valor;
+            } else {
+                return [corporation + " : $" + valor, "Total : $" + total];
+            }
+      };
+      options.tooltips.callbacks.label = titleish
       options = self.addAdditionalOptions(options, data.report_options);
-
       self.loadingIndicatorEl.stop(true, true).hide();
       self.emptyStateEl.html(emptyStateText).toggle(isEmptyState);
       if (isEmptyState) {
