@@ -39,7 +39,7 @@ ReportsKit.Chart = (function(options) {
             for (var i = 0; i < data.datasets.length; i++)
                 total += parseFloat(data.datasets[i].data[tooltipItem.index]);
             if (tooltipItem.datasetIndex != data.datasets.length - 1) {
-                return corporation + " : $" + valor;
+                return [corporation + " : $" + valor, "Total : $" + total];
             } else {
                 return [corporation + " : $" + valor, "Total : $" + total];
             }
