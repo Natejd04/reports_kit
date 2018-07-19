@@ -47,7 +47,8 @@ module ReportsKit
           maintainAspectRatio: false,
           tooltips: {
             xPadding: 8,
-            yPadding: 7
+            yPadding: 7,
+            zPadding: 10
           }
         }.freeze
 
@@ -55,6 +56,7 @@ module ReportsKit
 
         def initialize(data, options:, inferred_options: {})
           self.data = data
+          binding.pry
           self.options = options.try(:except, :options) || {}
           self.chart_options = options.try(:[], :options) || {}
           self.dataset_options = options.try(:[], :datasets)
